@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nilay Patel - Digital Visiting Card</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <!-- Developed by Sumukh Solution +917874796899 -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+            overflow-x: hidden;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            grid-template-rows: auto auto auto;
+            gap: 15px;
+            width: 100%;
+            max-width: 1200px;
+            align-items: center;
+        }
+
+        .video-container {
+            width: 200px;
+            height: 150px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            opacity: 0.85;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-container:hover {
+            opacity: 1;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-top-left {
+            grid-column: 1;
+            grid-row: 1;
+            justify-self: end;
+            margin-right: 20px;
+        }
+
+        .video-top-right {
+            grid-column: 3;
+            grid-row: 1;
+            justify-self: start;
+            margin-left: 20px;
+        }
+
+        .video-middle-left {
+            grid-column: 1;
+            grid-row: 2;
+            justify-self: end;
+            margin-right: 20px;
+        }
+
+        .video-middle-right {
+            grid-column: 3;
+            grid-row: 2;
+            justify-self: start;
+            margin-left: 20px;
+        }
+
+        .video-bottom-left {
+            grid-column: 1;
+            grid-row: 3;
+            justify-self: end;
+            margin-right: 20px;
+        }
+
+        .video-bottom-right {
+            grid-column: 3;
+            grid-row: 3;
+            justify-self: start;
+            margin-left: 20px;
+        }
+
+        .card-container {
+            grid-column: 2;
+            grid-row: 1 / -1;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.1);
+            overflow: hidden;
+            width: 420px;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 40%, #4a6741 100%);
+            color: white;
+            padding: 35px 30px 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .asus-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 160px;
+            opacity: 0.08;
+            z-index: 1;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60"><text x="100" y="35" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="20" font-weight="bold">ASUS</text></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+
+        .profile-photo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: block;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            animation: logoFloat 6s ease-in-out infinite;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            z-index: 3;
+            position: relative;
+            object-fit: cover;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-3px); }
+        }
+
+        .name {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            background: linear-gradient(45deg, #fff, #f8fafc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            z-index: 3;
+            position: relative;
+        }
+
+        .designation {
+            font-size: 13px;
+            opacity: 0.92;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            z-index: 3;
+            position: relative;
+        }
+
+        .company {
+            font-size: 18px;
+            font-weight: 700;
+            opacity: 0.95;
+            margin-top: 6px;
+            z-index: 3;
+            position: relative;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #34495e;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title i {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5a67d8;
+            font-size: 14px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 15px;
+            background: linear-gradient(135deg, #f7fafc, #ffffff);
+            border-radius: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 2px solid rgba(90, 103, 216, 0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(90, 103, 216, 0.08), transparent);
+            transition: left 0.4s;
+        }
+
+        .contact-item:hover::before {
+            left: 100%;
+        }
+
+        .contact-item:hover {
+            background: linear-gradient(135deg, #5a67d8, #667eea);
+            color: white;
+            transform: translateY(-1px) scale(1.01);
+            box-shadow: 0 6px 20px rgba(90, 103, 216, 0.2);
+            border-color: rgba(90, 103, 216, 0.3);
+        }
+
+        .contact-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #5a67d8, #667eea);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 15px;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(90, 103, 216, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover .contact-icon {
+            background: linear-gradient(135deg, #ffffff, #f8fafc);
+            color: #5a67d8;
+            transform: scale(1.05);
+        }
+
+        .contact-details {
+            flex: 1;
+        }
+
+        .contact-label {
+            font-size: 11px;
+            color: #718096;
+            text-transform: uppercase;
+            font-weight: 800;
+            margin-bottom: 3px;
+            letter-spacing: 1px;
+        }
+
+        .contact-item:hover .contact-label {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .contact-value {
+            font-size: 14px;
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .contact-item:hover .contact-value {
+            color: white;
+        }
+
+        .company-info {
+            background: linear-gradient(135deg, #f7fafc, #ffffff);
+            padding: 20px;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(90, 103, 216, 0.06);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        .company-info .contact-item {
+            margin-bottom: 10px;
+            padding: 12px;
+        }
+
+        .pdf-info {
+            background: linear-gradient(135deg, #f0fff4, #f7fafc);
+            padding: 18px;
+            border-radius: 15px;
+            margin-top: 12px;
+            border: 2px solid rgba(34, 197, 94, 0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pdf-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.08), transparent);
+            transition: left 0.4s;
+        }
+
+        .pdf-info:hover::before {
+            left: 100%;
+        }
+
+        .pdf-info:hover {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            transform: translateY(-1px) scale(1.01);
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.2);
+            border-color: rgba(34, 197, 94, 0.2);
+        }
+
+        .pdf-text {
+            font-size: 13px;
+            color: #15803d;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .pdf-info:hover .pdf-text {
+            color: white;
+        }
+
+        .pdf-number {
+            font-size: 15px;
+            color: #166534;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .pdf-info:hover .pdf-number {
+            color: white;
+        }
+
+        .whatsapp-icon {
+            font-size: 16px;
+            color: #22c55e;
+            transition: color 0.3s ease;
+        }
+
+        .pdf-info:hover .whatsapp-icon {
+            color: white;
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: linear-gradient(135deg, #f0f8ff, #ffffff);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            text-decoration: none;
+            color: #2d3748;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(90, 103, 216, 0.06);
+            font-size: 13px;
+            font-weight: 600;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #5a67d8, #667eea);
+            transition: left 0.3s;
+            z-index: -1;
+        }
+
+        .link-item:hover::before {
+            left: 0;
+        }
+
+        .link-item:hover {
+            color: white;
+            transform: translateX(3px) scale(1.01);
+            box-shadow: 0 6px 20px rgba(90, 103, 216, 0.2);
+        }
+
+        .link-item i {
+            width: 18px;
+            color: #5a67d8;
+            transition: color 0.3s;
+        }
+
+        .link-item:hover i {
+            color: white;
+        }
+
+        .videos-section {
+            background: linear-gradient(135deg, #f7fafc, #ffffff);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 25px 0;
+            border: 2px solid rgba(90, 103, 216, 0.06);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .video-description {
+            font-size: 14px;
+            color: #718096;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .video-item {
+            display: block;
+            text-decoration: none;
+            color: #2d3748;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 15px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            border: 2px solid rgba(90, 103, 216, 0.04);
+            position: relative;
+        }
+
+        .video-item:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 12px 35px rgba(239, 68, 68, 0.15);
+            border-color: #ef4444;
+        }
+
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .video-item:hover .video-thumbnail img {
+            transform: scale(1.06);
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .video-item:hover .play-overlay {
+            background: rgba(239, 68, 68, 0.75);
+        }
+
+        .play-button {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ef4444;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .video-item:hover .play-button {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .video-info {
+            padding: 12px;
+        }
+
+        .video-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #2d3748;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .video-item:hover .video-title {
+            color: #ef4444;
+        }
+
+        .video-footer {
+            font-size: 12px;
+            color: #718096;
+            text-align: center;
+            font-style: italic;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            text-align: center;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.4s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.2);
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+        }
+
+        .btn-save {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .btn-save:hover {
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-share {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
+        }
+
+        .btn-share:hover {
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.2);
+            font-size: 13px;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.2);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                gap: 10px;
+                padding: 10px;
+            }
+
+            .card-container {
+                grid-column: 1;
+                grid-row: 1;
+                width: 100%;
+                max-width: 420px;
+                margin: 0 auto;
+            }
+
+            .video-container {
+                width: 180px;
+                height: 120px;
+            }
+
+            .video-top-left,
+            .video-top-right,
+            .video-middle-left,
+            .video-middle-right,
+            .video-bottom-left,
+            .video-bottom-right {
+                grid-column: 1;
+                grid-row: auto;
+                justify-self: center;
+                margin: 5px;
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 5px;
+            }
+
+            .card-container {
+                width: 100%;
+                max-width: 95vw;
+                margin: 0;
+            }
+            
+            .card-header {
+                padding: 25px 20px 20px;
+            }
+            
+            .name {
+                font-size: 24px;
+            }
+            
+            .card-body {
+                padding: 25px 20px;
+            }
+            
+            .action-buttons {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-photo {
+                width: 70px;
+                height: 70px;
+            }
+
+            .video-container {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card-container {
+                border-radius: 20px;
+            }
+
+            .card-header {
+                padding: 20px 15px 15px;
+            }
+
+            .card-body {
+                padding: 20px 15px;
+            }
+
+            .name {
+                font-size: 22px;
+            }
+
+            .designation {
+                font-size: 12px;
+            }
+
+            .company {
+                font-size: 16px;
+            }
+        }
+
+        /* Desktop Video Layout */
+        @media (min-width: 1025px) {
+            .video-top-left,
+            .video-top-right,
+            .video-middle-left,
+            .video-middle-right,
+            .video-bottom-left,
+            .video-bottom-right {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Developed by Sumukh Solution - Contact: +917874796899 for web development services -->
+    
+    <div class="main-container">
+        <!-- Auto-playing videos around the card -->
+        <div class="video-container video-top-left">
+            <iframe src="https://www.youtube.com/embed/PXQ9Aitp4rY?autoplay=1&mute=1&loop=1&playlist=PXQ9Aitp4rY&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&fs=0&disablekb=1" allowfullscreen></iframe>
+        </div>
+
+        <div class="video-container video-top-right">
+            <iframe src="https://www.youtube.com/embed/kVJNHp4sZGs?autoplay=1&mute=1&loop=1&playlist=kVJNHp4sZGs&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&fs=0&disablekb=1" allowfullscreen></iframe>
+        </div>
+
+        <div class="video-container video-middle-left">
+            <iframe src="https://www.youtube.com/embed/1HUqw1vBd88?autoplay=1&mute=1&loop=1&playlist=1HUqw1vBd88&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&fs=0&disablekb=1" allowfullscreen></iframe>
+        </div>
+
+        <div class="video-container video-middle-right">
+            <iframe src="https://www.youtube.com/embed/CvlZPSgzkuM?autoplay=1&mute=1&loop=1&playlist=CvlZPSgzkuM&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&fs=0&disablekb=1" allowfullscreen></iframe>
+        </div>
+
+        <div class="video-container video-bottom-left">
+            <iframe src="https://www.youtube.com/embed/UezMdyFOYjE?autoplay=1&mute=1&loop=1&playlist=UezMdyFOYjE&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&fs=0&disablekb=1" allowfullscreen></iframe>
+        </div>
+
+        <div class="video-container video-bottom-right">
+            <iframe src="https://www.youtube.com/embed/qvmMZ-pb8PQ?autoplay=1&mute=1&loop=1&playlist=qvmMZ-pb8PQ&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&fs=0&disablekb=1" allowfullscreen></iframe>
+        </div>
+
+        <!-- Main Card -->
+        <div class="card-container">
+            <div class="card-header">
+                <div class="asus-background"></div>
+                <img src="nilay_photo.jpg" alt="Nilay Patel" class="profile-photo">
+                <div class="name">Nilay Patel</div>
+                <div class="designation">Account Executive</div>
+                <div class="designation">(Commercial PC - South Gujarat)</div>
+                <div class="company">ASUS India Pvt. Ltd.</div>
+            </div>
+
+            <div class="card-body">
+                <div class="section">
+                    <div class="section-title">
+                        <i class="fas fa-user-circle"></i> Personal Contact
+                    </div>
+                    
+                    <div class="contact-item" onclick="window.open('tel:+917600714006')">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div class="contact-details">
+                            <div class="contact-label">Phone & WhatsApp</div>
+                            <div class="contact-value">+91 76007 14006</div>
+                        </div>
+                    </div>
+
+                    <div class="contact-item" onclick="window.open('mailto:Patel_nilay@asus.com')">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-details">
+                            <div class="contact-label">Email</div>
+                            <div class="contact-value">Patel_nilay@asus.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="company-info">
+                    <div class="section-title">
+                        <i class="fas fa-building"></i> Company Information
+                    </div>
+                    
+                    <div class="contact-item" onclick="window.open('tel:18002678901')">
+                        <div class="contact-icon"><i class="fas fa-headset"></i></div>
+                        <div class="contact-details">
+                            <div class="contact-label">Toll-Free</div>
+                            <div class="contact-value">1800 267 8901</div>
+                        </div>
+                    </div>
+
+                    <div class="contact-item" onclick="window.open('mailto:cml_Indiaservice@asus.com')">
+                        <div class="contact-icon"><i class="fas fa-envelope-open"></i></div>
+                        <div class="contact-details">
+                            <div class="contact-label">Service Email</div>
+                            <div class="contact-value">cml_Indiaservice@asus.com</div>
+                        </div>
+                    </div>
+
+                    <div class="pdf-info" onclick="openWhatsAppOnly()">
+                        <div class="pdf-text">
+                            <i class="fab fa-whatsapp whatsapp-icon"></i>
+                            For Product Details PDF WhatsApp
+                        </div>
+                        <div class="pdf-number">
+                            <i class="fab fa-whatsapp whatsapp-icon"></i>
+                            +91 90760 40460
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">
+                        <i class="fas fa-link"></i> Quick Links
+                    </div>
+                    <a href="https://www.asus.com/in/business/" class="link-item" target="_blank">
+                        <i class="fas fa-globe"></i> ASUS Business Website
+                    </a>
+                    <a href="https://asusproductguide.asus.com/in-commercial-product-guide/full-view.html" class="link-item" target="_blank">
+                        <i class="fas fa-laptop-code"></i> Commercial Product Guide
+                    </a>
+                    <a href="https://asusproductguide.asus.com/in_dt_product_guide/full-view.html" class="link-item" target="_blank">
+                        <i class="fas fa-desktop"></i> Desktop and AiO Product Guide
+                    </a>
+                    <a href="https://asusproductguide.asus.com/in-edu-chromebook-product-guide/full-view.html" class="link-item" target="_blank">
+                        <i class="fas fa-graduation-cap"></i> Chromebook Product Guide
+                    </a>
+                </div>
+
+                <div class="videos-section">
+                    <div class="section-title">
+                        <i class="fab fa-youtube"></i> ASUS Commercial Product Videos
+                    </div>
+                    <div class="video-description">
+                        Explore the features and benefits of ASUS commercial products through these informative videos:
+                    </div>
+                    
+                    <div class="video-grid">
+                        <a href="https://youtu.be/PXQ9Aitp4rY?si=wgynXmOqNhCnec7a" class="video-item" target="_blank">
+                            <div class="video-thumbnail">
+                                <img src="https://img.youtube.com/vi/PXQ9Aitp4rY/mqdefault.jpg" alt="ASUS Military Grade Testing">
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-title">ASUS Military Grade Testing</div>
+                            </div>
+                        </a>
+                        
+                        <a href="https://youtu.be/kVJNHp4sZGs?si=sthT0iaLm11rFXgb" class="video-item" target="_blank">
+                            <div class="video-thumbnail">
+                                <img src="https://img.youtube.com/vi/kVJNHp4sZGs/mqdefault.jpg" alt="ExpertBook B1403 / B1503">
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-title">ExpertBook B1403 / B1503</div>
+                            </div>
+                        </a>
+                        
+                        <a href="https://youtu.be/1HUqw1vBd88?si=x_dDA2liqE-CEp3d" class="video-item" target="_blank">
+                            <div class="video-thumbnail">
+                                <img src="https://img.youtube.com/vi/1HUqw1vBd88/mqdefault.jpg" alt="ExpertBook P3405 / P3605">
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-title">ExpertBook P3405 / P3605</div>
+                            </div>
+                        </a>
+                        
+                        <a href="https://youtu.be/CvlZPSgzkuM?si=d0394pqZkAAUss0p" class="video-item" target="_blank">
+                            <div class="video-thumbnail">
+                                <img src="https://img.youtube.com/vi/CvlZPSgzkuM/mqdefault.jpg" alt="ExpertBook B5405 / B5605">
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-title">ExpertBook B5405 / B5605</div>
+                            </div>
+                        </a>
+                        
+                        <a href="https://youtu.be/UezMdyFOYjE?si=Qbq3lxfU5JhBeU3D" class="video-item" target="_blank">
+                            <div class="video-thumbnail">
+                                <img src="https://img.youtube.com/vi/UezMdyFOYjE/mqdefault.jpg" alt="Expertbook B5405CSA">
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-title">Expertbook B5405CSA</div>
+                            </div>
+                        </a>
+                        
+                        <a href="https://youtu.be/qvmMZ-pb8PQ?si=jPxcd4lRxFvG-NXe" class="video-item" target="_blank">
+                            <div class="video-thumbnail">
+                                <img src="https://img.youtube.com/vi/qvmMZ-pb8PQ/mqdefault.jpg" alt="ExpertBook B9403CVA">
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-title">ExpertBook B9403CVA</div>
+                            </div>
+                        </a>
+                        
+                        <a href="https://youtu.be/3tSfoFNa5kE?si=5uEOPdEI96TqmphD" class="video-item" target="_blank">
+                            <div class="video-thumbnail">
+                                <img src="https://img.youtube.com/vi/3tSfoFNa5kE/mqdefault.jpg" alt="ExpertCenter Desktop P500MV">
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-title">ExpertCenter Desktop P500MV</div>
+                            </div>
+                        </a>
+                        
+                        <a href="https://youtu.be/7HXyOMh47ag?si=3xJLtUcaJBuj7yjH" class="video-item" target="_blank">
+                            <div class="video-thumbnail">
+                                <img src="https://img.youtube.com/vi/7HXyOMh47ag/mqdefault.jpg" alt="ExpertCenter Touch AiO">
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-title">ExpertCenter Touch AiO</div>
+                            </div>
+                        </a>
+                        
+                        <a href="https://youtu.be/WXYWRteC7qo?si=nPV_uhxCV7C_pgwV" class="video-item" target="_blank">
+                            <div class="video-thumbnail">
+                                <img src="https://img.youtube.com/vi/WXYWRteC7qo/mqdefault.jpg" alt="ExpertCenter AiO P440VA / P470VA">
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-title">ExpertCenter AiO P440VA / P470VA</div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="video-footer">
+                        Watch these videos to learn more about ASUS commercial products and how they can support your business needs.
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="https://wa.me/917600714006" class="btn btn-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <button class="btn btn-save" onclick="saveContact()">
+                        <i class="fas fa-address-card"></i> Save Contact
+                    </button>
+                    <button class="btn btn-share" onclick="shareCard()">
+                        <i class="fas fa-share-alt"></i> Share Card
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <!-- 
+        Digital Visiting Card with Auto-playing Videos
+        Developed by: Sumukh Solution
+        Contact: +917874796899
+        Professional web development services
+    -->
+
+    <script>
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = isError ? 'toast error show' : 'toast show';
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // WhatsApp only function for PDF details number
+        function openWhatsAppOnly() {
+            const whatsappUrl = 'https://wa.me/919076040460?text=Hi%2C%20I%20need%20ASUS%20product%20details%20PDF';
+            window.open(whatsappUrl, '_blank');
+            showToast('Opening WhatsApp for product details... 💬');
+        }
+
+        async function saveContact() {
+            const contactData = {
+                name: 'Nilay Patel Asus',
+                organization: 'ASUS India Pvt. Ltd.',
+                title: 'Account Executive (Commercial PC - South Gujarat)',
+                phone: '+917600714006',
+                email: 'Patel_nilay@asus.com'
+            };
+
+            const vCard = `BEGIN:VCARD
+VERSION:3.0
+FN:${contactData.name}
+N:Patel;Nilay;Asus;;
+ORG:${contactData.organization}
+TITLE:${contactData.title}
+TEL;TYPE=CELL:${contactData.phone}
+EMAIL:${contactData.email}
+URL:https://wa.me/917600714006
+NOTE:Commercial PC Expert | ASUS India | Toll-Free: 1800 267 8901 | Product Details: +919076040460
+CATEGORIES:Business,ASUS
+X-PHONETIC-FIRST-NAME:Nilay
+X-PHONETIC-LAST-NAME:Patel Asus
+END:VCARD`;
+
+            try {
+                const blob = new Blob([vCard], { type: 'text/vcard;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `Nilay_Patel_Asus_Contact.vcf`;
+                
+                if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                    link.setAttribute('target', '_blank');
+                    link.setAttribute('rel', 'noopener noreferrer');
+                }
+                
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+                
+                showToast('Contact "Nilay Patel Asus" saved! 📱 Check your contact app');
+                return;
+                
+            } catch (error) {
+                console.log('Blob method failed:', error);
+            }
+
+            try {
+                if (navigator.share && navigator.canShare) {
+                    const shareData = {
+                        title: `Contact: ${contactData.name}`,
+                        text: `${contactData.name}\n${contactData.title}\n${contactData.organization}\nPhone: ${contactData.phone}\nEmail: ${contactData.email}`
+                    };
+                    
+                    if (navigator.canShare(shareData)) {
+                        await navigator.share(shareData);
+                        showToast('Contact "Nilay Patel Asus" shared successfully! 🚀');
+                        return;
+                    }
+                }
+            } catch (error) {
+                console.log('Share method failed:', error);
+            }
+
+            try {
+                const contactText = `Contact Information:
+Name: ${contactData.name}
+Title: ${contactData.title}
+Company: ${contactData.organization}
+Phone: ${contactData.phone}
+Email: ${contactData.email}
+WhatsApp: ${contactData.phone}
+
+Save this contact manually to your phone.`;
+                
+                await navigator.clipboard.writeText(contactText);
+                showToast('Contact "Nilay Patel Asus" copied to clipboard! 📋');
+                
+            } catch (error) {
+                console.log('Clipboard failed:', error);
+                
+                const contactInfo = `Please save this contact:
+
+Name: ${contactData.name}
+Phone: ${contactData.phone}
+Email: ${contactData.email}
+Company: ${contactData.organization}`;
+                
+                alert(contactInfo);
+                showToast('Contact details shown above ☝️');
+            }
+        }
+
+        async function shareCard() {
+            const shareData = {
+                title: 'Nilay Patel - ASUS India',
+                text: 'Digital Visiting Card - Account Executive (Commercial PC - South Gujarat)',
+                url: window.location.href
+            };
+
+            try {
+                if (navigator.share && navigator.canShare(shareData)) {
+                    await navigator.share(shareData);
+                    showToast('Card shared successfully! 🚀');
+                } else {
+                    await navigator.clipboard.writeText(window.location.href);
+                    showToast('Link copied to clipboard! 📋');
+                }
+            } catch (error) {
+                try {
+                    await navigator.clipboard.writeText(window.location.href);
+                    showToast('Link copied to clipboard! 📋');
+                } catch (err) {
+                    showToast('Please copy the URL manually from address bar', true);
+                }
+            }
+        }
+
+        // Enhanced interactions
+        document.querySelectorAll('.contact-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Copy to clipboard on right-click
+        document.querySelectorAll('.contact-item').forEach(item => {
+            item.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                const value = this.querySelector('.contact-value').textContent;
+                navigator.clipboard.writeText(value).then(() => {
+                    showToast(`Copied: ${value} 📋`);
+                });
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section, .video-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
